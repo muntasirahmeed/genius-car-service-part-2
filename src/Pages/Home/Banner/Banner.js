@@ -15,6 +15,7 @@ const Banner = () => {
         <Carousel activeIndex={index} onSelect={handleSelect}>
             <Carousel.Item>
                 <img
+                    id=''
                     className="d-block w-100"
                     src={banner1}
                     alt="First slide"
