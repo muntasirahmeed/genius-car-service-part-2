@@ -1,16 +1,31 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import auth from "../../../firebase.init";
 
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
+    signInWithEmailAndPassword(email, password);
   };
   return (
     <div className="w-25 mx-auto my-5 vh-100">
@@ -44,6 +59,7 @@ const Login = () => {
             </Link>{" "}
           </small>
         </p>
+
         <Button
           className="d-block  cursor-pointer py-1"
           variant="primary"
