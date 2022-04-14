@@ -2,8 +2,8 @@ import React from 'react';
 
 const Chekout = () => {
     return (
-        <div>
-            <h1>Thisi si checkout</h1>
+        <div className='d-flex align-items-center justify-content-center vh-100'>
+            <h1 className='text-center'>This Is Checkout</h1>
         </div>
     );
 };
