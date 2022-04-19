@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useSignInWithGithub,
   useSignInWithGoogle,
@@ -10,7 +10,11 @@ const SocialLogin = () => {
   const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
   const [signInWithGithub, user2, loading2, error2] = useSignInWithGithub(auth);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (user1 || user2) {
+      navigate("/home");
+    }
+  }, [user1]);
   let errorElement;
   if (error1 || error2) {
     errorElement = (
@@ -23,10 +27,6 @@ const SocialLogin = () => {
   }
   if (loading1 || loading2) {
     return <Loading></Loading>;
-  }
-
-  if (user1 || user2) {
-    navigate("/home");
   }
 
   return (

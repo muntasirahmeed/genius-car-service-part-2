@@ -12,6 +12,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import PageTitle from "../../Shared/PageTitle/PageTitle";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -58,6 +59,7 @@ const Login = () => {
   };
   return (
     <div className="w-25 mx-auto my-5 vh-100">
+      <PageTitle title='Login'></PageTitle>
       <h2 className="text-primary text-center">LOGIN</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
