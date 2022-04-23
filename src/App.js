@@ -2,7 +2,9 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './Pages/About/About';
 import Chekout from './Pages/Chekout/Chekout';
+import AddService from './Pages/Home/AddService/AddService';
 import Home from './Pages/Home/Home/Home';
+import MangeService from './Pages/Home/ManageService/MangeService';
 import ServiceDetails from './Pages/Home/ServiceDetails/ServiceDetails';
 import Login from './Pages/Login/Login/Login';
 import Register from './Pages/Login/Register/Register';
@@ -22,6 +24,16 @@ function App() {
         <Route path='/checkout' element={
           <RequireAuth>
             <Chekout></Chekout>
+          </RequireAuth>
+        }></Route>
+        <Route path='/addservice' element={
+          <RequireAuth>
+            <AddService></AddService>
+          </RequireAuth>
+        }></Route>
+        <Route path='/manage' element={
+          <RequireAuth>
+           <MangeService></MangeService>
           </RequireAuth>
         }></Route>
         <Route path="/about" element={<About></About>}></Route>

@@ -5,7 +5,7 @@ import {
   useSendEmailVerification,
 } from "react-firebase-hooks/auth";
 import { Navigate, useLocation } from "react-router-dom";
-import { toast ,ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading/Loading";
 
@@ -21,7 +21,7 @@ const RequireAuth = ({ children }) => {
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  if (!user.emailVerified) {
+  if (user?.providerData[0]?.providerId === "password" && !user.emailVerified) {
     return (
       <div className="vh-100 d-flex flex-column align-items-center justify-content-center">
         <h1 className="text-success">Please Verify Your Email</h1>
@@ -29,7 +29,7 @@ const RequireAuth = ({ children }) => {
           className="btn btn-primary"
           onClick={async () => {
             await sendEmailVerification();
-            console.log('sent')
+            console.log("sent");
             toast("Sent email");
           }}
         >
