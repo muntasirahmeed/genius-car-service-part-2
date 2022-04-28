@@ -1,20 +1,33 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 
+import { signOut } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Navigate } from "react-router-dom";
+import axiosPrivate from "../../api/axiousPrivate";
+import auth from "../../firebase.init";
 const Orders = () => {
+  const [user] = useAuthState(auth);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    const getOrder = async () => {
-      const url = `http://localhost:5000/order`;
-      const { data } = await axios.get(url);
-      setOrders(data);
+    const getOrders = async () => {
+      const email = user.email;
+      const url = `http://localhost:5000/order?email=${email}`;
+      try {
+        const { data } = await axiosPrivate.get(url);
+        setOrders(data);
+      } catch (error) {
+        console.log(error.message);
+        if (error.response.status === 401 || error.response.status === 403) {
+          signOut(auth);
+          Navigate("/login");
+        }
+      }
     };
-    getOrder();
-  }, []);
+    getOrders();
+  }, [user]);
   return (
     <div className="mt-5">
-      <h1 className="text-center">Orderd Services { orders.length}</h1>
-      
+      <h1 className="text-center">Orderd Services: {orders.length}</h1>
     </div>
   );
 };

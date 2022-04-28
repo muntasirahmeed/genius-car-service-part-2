@@ -13,16 +13,16 @@ const Chekout = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const order = {
-      id: id,
-      userEmail: user?.email,
-      serviceName: service.name,
+      email: user.email,
+      service: service.name,
+      serviceId: id,
       address: event.target.address.value,
-      phoneNumber: event.target.phone.value,
+      phone: event.target.phone.value,
     };
     axios.post("http://localhost:5000/order", order).then((response) => {
       const { data } = response;
       if (data.insertedId) {
-        toast("Order Succesfull");
+        toast("Your order is booked!!!");
         event.target.reset();
       }
     });
