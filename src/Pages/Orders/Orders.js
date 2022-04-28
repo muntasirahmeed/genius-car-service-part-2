@@ -1,4 +1,3 @@
-
 import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,7 +10,7 @@ const Orders = () => {
   useEffect(() => {
     const getOrders = async () => {
       const email = user.email;
-      const url = `http://localhost:5000/order?email=${email}`;
+      const url = `https://whispering-thicket-66203.herokuapp.com/order?email=${email}`;
       try {
         const { data } = await axiosPrivate.get(url);
         setOrders(data);

@@ -19,13 +19,15 @@ const Chekout = () => {
       address: event.target.address.value,
       phone: event.target.phone.value,
     };
-    axios.post("http://localhost:5000/order", order).then((response) => {
-      const { data } = response;
-      if (data.insertedId) {
-        toast("Your order is booked!!!");
-        event.target.reset();
-      }
-    });
+    axios
+      .post("https://whispering-thicket-66203.herokuapp.com/order", order)
+      .then((response) => {
+        const { data } = response;
+        if (data.insertedId) {
+          toast("Your order is booked!!!");
+          event.target.reset();
+        }
+      });
   };
   return (
     <div className=" my-5 vh-100 w-50 mx-auto">
